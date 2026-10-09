@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include lumenfeed/templates *.html
+recursive-include lumenfeed/static *
+recursive-include tests *.py
+include Makefile
+include run.sh
+recursive-include deploy *.service

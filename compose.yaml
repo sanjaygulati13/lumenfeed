@@ -1,0 +1,17 @@
+services:
+  lumenfeed:
+    build: .
+    image: lumenfeed
+    container_name: lumenfeed
+    restart: unless-stopped
+    ports:
+      # Only this machine can reach it. Change to "5024:5024" to open it
+      # from your phone on the same network (there's no login, see README).
+      - "127.0.0.1:5024:5024"
+    volumes:
+      - lumenfeed-data:/data
+    # environment:
+    #   LUMEN_REFRESH: "1800"
+
+volumes:
+  lumenfeed-data:

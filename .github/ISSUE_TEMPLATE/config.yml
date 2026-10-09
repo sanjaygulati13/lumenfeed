@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Add a source
+    url: https://github.com/sanjaygulati13/lumenfeed/blob/main/CONTRIBUTING.md
+    about: Want to suggest a new source? A PR is usually quicker than an issue. Here's how.

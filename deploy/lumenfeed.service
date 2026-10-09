@@ -1,0 +1,41 @@
+# Lumenfeed — per-user systemd unit (no root required).
+#
+# Install:
+#   mkdir -p ~/.config/systemd/user
+#   cp deploy/lumenfeed.service ~/.config/systemd/user/
+#   # edit the two WorkingDirectory/ExecStart paths to your install location
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now lumenfeed
+#
+# Keep it running after you log out / reboot the machine with:
+#   sudo loginctl enable-linger <your-user>
+#
+# Note: systemd does NOT expand "~" or shell variables, so the paths below must
+# be absolute and point at YOUR install.
+
+[Unit]
+Description=Lumenfeed - Curated Tech/AI News Feed
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# --- adjust these lines to your install location ---
+WorkingDirectory=/home/YOU/workspace/lumenfeed
+# Force the intended package to be imported (guards against a stale/mismatched
+# editable install in the venv resolving the import to a different copy).
+Environment=PYTHONPATH=/home/YOU/workspace/lumenfeed
+# 127.0.0.1 = this machine only. Use --host 0.0.0.0 to open it from your phone
+# on the same network (there is no login, so don't expose it beyond that).
+ExecStart=/home/YOU/workspace/lumenfeed/.venv/bin/uvicorn lumenfeed.api:app --host 127.0.0.1 --port 5024
+# -------------------------------------------------------
+# Always-on daemon: restart on ANY exit (crash, signal, or clean shutdown);
+# only stays down when explicitly stopped. (on-failure would NOT restart a
+# graceful SIGTERM exit, which is why the service can silently stay down.)
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+Environment=LUMEN_PORT=5024
+
+[Install]
+WantedBy=default.target

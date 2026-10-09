@@ -1,0 +1,17 @@
+{
+  "name": "Lumenfeed",
+  "short_name": "Lumenfeed",
+  "description": "Curated tech/AI news feed with personalization",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#0969da",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
